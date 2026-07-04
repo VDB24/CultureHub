@@ -38,8 +38,8 @@ export function VideoPlayer({
 
   const buildUrl = useCallback(() => {
     const base = mediaType === "movie"
-      ? `https://peachify.top/embed/movie/${tmdbId}`
-      : `https://peachify.top/embed/tv/${tmdbId}/${season || 1}/${episode || 1}`
+      ? `/api/embed/movie/${tmdbId}`
+      : `/api/embed/tv/${tmdbId}/${season || 1}/${episode || 1}`
 
     const params = new URLSearchParams()
 
@@ -58,7 +58,7 @@ export function VideoPlayer({
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== "https://peachify.top") return
+      if (event.origin !== window.location.origin) return
 
       if (event.data?.type === "MEDIA_DATA") {
         const data = event.data.data
@@ -98,7 +98,6 @@ export function VideoPlayer({
         className="absolute inset-0 w-full h-full"
         allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
-        sandbox="allow-scripts allow-same-origin allow-presentation"
         title={title || `${mediaType} player`}
       />
     </div>
