@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import type { ContinueWatchingItem } from "@/lib/types"
 
-const STORAGE_KEY = "peachifyProgress"
+const STORAGE_KEY = "culturehub-progress"
 
 export function useContinueWatching() {
   const [items, setItems] = useState<ContinueWatchingItem[]>([])

@@ -5,9 +5,11 @@ import Link from "next/link"
 import { useTVDetails } from "@/hooks/useTMDB"
 import { VideoPlayer } from "@/components/VideoPlayer"
 import { QualitySelector } from "@/components/QualitySelector"
+import { ServerSelector } from "@/components/ServerSelector"
+import { CastButton } from "@/components/CastButton"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ArrowLeft, Info, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react"
 
 export default function WatchTVPage({
   params,
@@ -21,6 +23,7 @@ export default function WatchTVPage({
 
   const { data: show, isLoading } = useTVDetails(tvId)
   const [quality, setQuality] = useState("auto")
+  const [source, setSource] = useState("peachify")
 
   if (isLoading) {
     return (
@@ -55,13 +58,9 @@ export default function WatchTVPage({
       </div>
 
       <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+        <CastButton source={source} />
+        <ServerSelector source={source} onChange={setSource} />
         <QualitySelector quality={quality} onChange={setQuality} />
-        <Link href={`/tv/${show.id}`}>
-          <Button variant="ghost" size="sm" className="text-white/70 hover:text-white gap-2 bg-black/40 hover:bg-black/60">
-            <Info className="w-4 h-4" />
-            Details
-          </Button>
-        </Link>
       </div>
 
       <VideoPlayer
@@ -72,6 +71,7 @@ export default function WatchTVPage({
         title={`${show.name} S${seasonNum}E${episodeNum}`}
         posterPath={show.poster_path}
         quality={quality}
+        source={source}
         fill
       />
 

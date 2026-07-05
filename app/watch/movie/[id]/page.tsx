@@ -5,15 +5,18 @@ import Link from "next/link"
 import { useMovieDetails } from "@/hooks/useTMDB"
 import { VideoPlayer } from "@/components/VideoPlayer"
 import { QualitySelector } from "@/components/QualitySelector"
+import { ServerSelector } from "@/components/ServerSelector"
+import { CastButton } from "@/components/CastButton"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ArrowLeft, Info } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 
 export default function WatchMoviePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const movieId = Number(id)
   const { data: movie, isLoading } = useMovieDetails(movieId)
   const [quality, setQuality] = useState("auto")
+  const [source, setSource] = useState("peachify")
 
   if (isLoading) {
     return (
@@ -43,13 +46,9 @@ export default function WatchMoviePage({ params }: { params: Promise<{ id: strin
       </div>
 
       <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+        <CastButton source={source} />
+        <ServerSelector source={source} onChange={setSource} />
         <QualitySelector quality={quality} onChange={setQuality} />
-        <Link href={`/movie/${movie.id}`}>
-          <Button variant="ghost" size="sm" className="text-white/70 hover:text-white gap-2 bg-black/40 hover:bg-black/60">
-            <Info className="w-4 h-4" />
-            Details
-          </Button>
-        </Link>
       </div>
 
       <VideoPlayer
@@ -58,6 +57,7 @@ export default function WatchMoviePage({ params }: { params: Promise<{ id: strin
         title={movie.title}
         posterPath={movie.poster_path}
         quality={quality}
+        source={source}
         fill
       />
     </div>
