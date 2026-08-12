@@ -21,7 +21,7 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-zinc-800/50">
+      <header className="fixed top-0 left-0 right-0 z-50 glass rounded-none border-x-0 border-t-0 backdrop-blur-xl">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -30,7 +30,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex items-center gap-1 p-1 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md">
               {navLinks.map((link) => {
                 const Icon = link.icon
                 const isActive = pathname.startsWith(link.href)
@@ -39,10 +39,10 @@ export function Header() {
                     <Button
                       variant="ghost"
                       className={cn(
-                        "gap-2",
+                        "gap-2 rounded-full",
                         isActive
-                          ? "text-primary bg-primary/10"
-                          : "text-zinc-400 hover:text-white"
+                          ? "text-primary bg-primary/15 hover:bg-primary/20 hover:text-primary"
+                          : "text-zinc-300 hover:text-white"
                       )}
                     >
                       <Icon className="w-4 h-4" />
@@ -94,7 +94,7 @@ export function Header() {
 
         {/* Mobile Nav */}
         {mobileOpen && (
-          <div className="md:hidden border-t border-zinc-800 bg-zinc-900/95 backdrop-blur-xl animate-fade-in">
+          <div className="md:hidden border-t border-white/10 bg-[#0d0d0d]/95 backdrop-blur-xl animate-fade-in">
             <div className="px-4 py-3 space-y-1">
               {navLinks.map((link) => {
                 const Icon = link.icon
@@ -104,8 +104,8 @@ export function Header() {
                     <Button
                       variant="ghost"
                       className={cn(
-                        "w-full justify-start gap-3",
-                        isActive ? "text-primary bg-primary/10" : "text-zinc-400"
+                        "w-full justify-start gap-3 rounded-lg",
+                        isActive ? "text-primary bg-primary/15" : "text-zinc-300"
                       )}
                     >
                       <Icon className="w-4 h-4" />

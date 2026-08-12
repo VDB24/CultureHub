@@ -48,6 +48,7 @@ export function VideoPlayer({
     if (autoPlay) params.autoPlay = "true"
 
     if (source === "peachify") {
+      params.cast = "hide"
       if (dub) params.dub = dub
       if (sub) params.sub = sub
       if (quality && quality !== "auto") params.q = quality

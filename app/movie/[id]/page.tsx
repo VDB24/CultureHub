@@ -98,6 +98,35 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
 
           {/* Info */}
           <div className="flex flex-col justify-end pb-8">
+            {/* Mobile poster row */}
+            <div className="md:hidden flex items-end gap-4 mb-4">
+              <div className="relative w-24 sm:w-28 aspect-[2/3] rounded-lg overflow-hidden shadow-2xl shadow-black/50 flex-shrink-0">
+                <Image
+                  src={getPosterUrl(movie.poster_path)}
+                  alt={movie.title}
+                  fill
+                  className="object-cover"
+                  sizes="112px"
+                />
+              </div>
+              <div className="flex flex-col gap-2 pb-1">
+                <div className="flex items-center gap-1.5">
+                  <Star className="w-4 h-4 fill-orange-400 text-orange-400" />
+                  <span className="text-white font-semibold">
+                    {formatRating(movie.vote_average)}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 text-zinc-400 text-sm">
+                  <Calendar className="w-4 h-4" />
+                  <span>{formatDate(movie.release_date)}</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-zinc-400 text-sm">
+                  <Clock className="w-4 h-4" />
+                  <span>{formatRuntime(movie.runtime)}</span>
+                </div>
+              </div>
+            </div>
+
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
               {movie.title}
             </h1>
@@ -106,7 +135,7 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
               <p className="text-lg text-zinc-400 italic mb-4">{movie.tagline}</p>
             )}
 
-            <div className="flex items-center gap-4 flex-wrap mb-6">
+            <div className="hidden md:flex items-center gap-4 flex-wrap mb-6">
               <div className="flex items-center gap-1.5">
                 <Star className="w-5 h-5 fill-orange-400 text-orange-400" />
                 <span className="text-white font-semibold">
@@ -183,7 +212,7 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
         {movie.credits?.cast && movie.credits.cast.length > 0 && (
           <section className="mb-12">
             <h2 className="text-xl font-bold text-white mb-4">Cast</h2>
-            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-none">
+            <div className="flex gap-4 overflow-x-auto overscroll-x-contain pb-4 scrollbar-none">
               {movie.credits.cast.slice(0, 20).map((person) => (
                 <div key={person.id} className="flex-shrink-0 w-[120px] text-center">
                   <div className="relative w-[120px] h-[120px] rounded-full overflow-hidden bg-zinc-800 mx-auto mb-2">

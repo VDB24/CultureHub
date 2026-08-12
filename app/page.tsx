@@ -1,7 +1,11 @@
 "use client"
 
+import { useEffect } from "react"
 import { HeroBanner } from "@/components/HeroBanner"
 import { ContentRow } from "@/components/ContentRow"
+import { ProviderRow } from "@/components/ProviderRow"
+import { useWatchProviders } from "@/hooks/useTMDB"
+import { resolveProviders } from "@/lib/providers"
 import {
   useTrendingMovies,
   useTrendingTV,
@@ -27,6 +31,15 @@ export default function Home() {
   const hindiTV = useHindiTV()
   const onTheAir = useOnTheAirTV()
 
+  const watchProviders = useWatchProviders()
+  const providers = resolveProviders(watchProviders.data?.results || [])
+
+  useEffect(() => {
+    if (watchProviders.error) {
+      console.error("[providers] failed to load watch provider list:", watchProviders.error)
+    }
+  }, [watchProviders.error])
+
   const isLoading =
     trendingMovies.isLoading ||
     trendingTV.isLoading
@@ -39,6 +52,10 @@ export default function Home() {
       />
 
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-10">
+        {providers.map((provider) => (
+          <ProviderRow key={provider.key} provider={provider} />
+        ))}
+
         <ContentRow
           title="Trending Movies"
           items={trendingMovies.data?.results}

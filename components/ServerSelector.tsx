@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useEffect, useCallback } from "react"
 import { getSources } from "@/lib/sources"
 import { Server, Check } from "lucide-react"
 
@@ -28,7 +28,6 @@ interface ServerSelectorProps {
 }
 
 export function ServerSelector({ source, onChange }: ServerSelectorProps) {
-  const [open, setOpen] = useState(false)
   const sources = getSources()
 
   useEffect(() => {
@@ -41,47 +40,29 @@ export function ServerSelector({ source, onChange }: ServerSelectorProps) {
   const handleSelect = useCallback((value: string) => {
     saveSource(value)
     onChange(value)
-    setOpen(false)
   }, [onChange])
 
-  const current = sources.find((s) => s.id === source)
-
   return (
-    <div className="relative">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/60 text-xs text-white hover:bg-zinc-800 transition-colors border border-zinc-600/50 shadow-lg"
-        aria-label="Server selector"
-      >
-        <Server className="w-3.5 h-3.5 text-primary" />
-        <span className="text-white/80">{current?.name || "Server"}</span>
-      </button>
-
-      {open && (
-        <>
-          <div className="fixed inset-0 z-30" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 top-full mt-2 z-40 w-44 bg-zinc-900 border border-zinc-700 rounded-lg shadow-2xl shadow-black/60 overflow-hidden">
-            <div className="px-3 py-1.5 text-[10px] text-zinc-500 uppercase tracking-wider border-b border-zinc-800">
-              Video Server
-            </div>
-            {sources.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => handleSelect(s.id)}
-                className="w-full flex items-center justify-between px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
-              >
-                <div className="flex flex-col items-start">
-                  <span className="text-white/90">{s.name}</span>
-                  <span className="text-[10px] text-zinc-500">{s.description}</span>
-                </div>
-                {source === s.id && (
-                  <Check className="w-3.5 h-3.5 text-primary shrink-0" />
-                )}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
+    <div className="flex items-center gap-1 w-max max-w-full mx-auto overflow-x-auto rounded-full bg-black/70 border border-zinc-700/60 shadow-2xl shadow-black/60 backdrop-blur-sm px-1.5 py-1.5">
+      {sources.map((s) => {
+        const active = source === s.id
+        return (
+          <button
+            key={s.id}
+            onClick={() => handleSelect(s.id)}
+            title={s.description}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+              active
+                ? "bg-primary text-primary-foreground shadow-lg"
+                : "text-white/70 hover:text-white hover:bg-white/10"
+            }`}
+          >
+            <Server className="w-3.5 h-3.5" />
+            {s.name}
+            {active && <Check className="w-3 h-3" />}
+          </button>
+        )
+      })}
     </div>
   )
 }

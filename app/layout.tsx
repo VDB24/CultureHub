@@ -1,5 +1,5 @@
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { Geist, Geist_Mono, Grenze_Gotisch } from "next/font/google"
 import "./globals.css"
 import { Providers } from "@/components/Providers"
 import { Header } from "@/components/Header"
@@ -15,6 +15,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 })
 
+const grenze = Grenze_Gotisch({
+  variable: "--font-grenze",
+  weight: ["400", "600", "700"],
+  subsets: ["latin"],
+})
+
 export const metadata: Metadata = {
   title: "CultureHub - Stream Movies & TV Shows",
   description: "Your premier destination for streaming movies and TV shows. Watch the latest and greatest content in English, Hindi, and more.",
@@ -24,13 +30,19 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  themeColor: "#080808",
+  width: "device-width",
+  initialScale: 1,
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${grenze.variable}`}>
       <body className="bg-background text-foreground antialiased min-h-screen flex flex-col">
         <Providers>
           <Header />

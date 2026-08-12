@@ -1,5 +1,7 @@
 const TMDB_BASE_URL = "https://api.themoviedb.org/3"
 
+export const WATCH_REGION = "IN"
+
 function getApiKey(): string {
   const key = process.env.NEXT_PUBLIC_TMDB_API_KEY
   if (!key || key === "your_tmdb_api_key_here") {
@@ -102,6 +104,8 @@ export interface DiscoverParams {
   with_original_language?: string
   year?: number
   "vote_count.gte"?: number
+  with_watch_providers?: string
+  watch_region?: string
 }
 
 export function discoverMovies(params: DiscoverParams = {}) {
@@ -134,6 +138,19 @@ export function fetchMovieGenres() {
 
 export function fetchTVGenres() {
   return tmdbFetch<{ genres: Genre[] }>("/genre/tv/list")
+}
+
+// Watch providers
+export interface WatchProvider {
+  provider_id: number
+  provider_name: string
+  logo_path: string | null
+}
+
+export function fetchWatchProviders(mediaType: "movie" | "tv", region = WATCH_REGION) {
+  return tmdbFetch<{ results: WatchProvider[] }>(
+    `/watch/providers/${mediaType}?watch_region=${encodeURIComponent(region)}&language=en-US`
+  )
 }
 
 // Hindi content helpers

@@ -140,9 +140,8 @@ movie-app/
 │   └── globals.css               # Global styles & theme variables
 ├── components/                   # Reusable React components
 │   ├── VideoPlayer.tsx           # Multi-source iframe video player
-│   ├── ServerSelector.tsx        # Streaming source switcher
-│   ├── QualitySelector.tsx       # Video quality picker
-│   ├── CastButton.tsx            # Chromecast integration
+│   ├── ServerSelector.tsx        # Streaming source switcher (pill bar)
+│   ├── ProviderRow.tsx           # OTT provider-curated content row (movies + shows)
 │   ├── HeroBanner.tsx            # Homepage hero carousel
 │   ├── ContentRow.tsx            # Horizontal scrollable row
 │   ├── MediaCard.tsx             # Media poster card
@@ -157,6 +156,7 @@ movie-app/
 │   └── useContinueWatching.ts    # localStorage progress tracker
 ├── lib/
 │   ├── tmdb.ts                   # TMDB API fetch functions
+│   ├── providers.ts              # OTT provider curation config & resolution
 │   ├── sources.ts                # Streaming source configuration
 │   ├── types.ts                  # TypeScript interfaces
 │   └── utils.ts                  # Utility functions

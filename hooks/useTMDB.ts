@@ -103,3 +103,34 @@ export function useMovieGenres() {
 export function useTVGenres() {
   return useMediaQuery(["genres", "tv"], () => tmdb.fetchTVGenres())
 }
+
+// Watch providers
+export function useWatchProviders(region = tmdb.WATCH_REGION) {
+  return useMediaQuery(["watch", "providers", region], () => tmdb.fetchWatchProviders("movie", region))
+}
+
+export function useProviderMovies(providerId: number, region = tmdb.WATCH_REGION) {
+  return useMediaQuery(
+    ["discover", "provider", "movies", providerId, region],
+    () =>
+      tmdb.discoverMovies({
+        with_watch_providers: String(providerId),
+        watch_region: region,
+        sort_by: "popularity.desc",
+      }),
+    providerId > 0
+  )
+}
+
+export function useProviderTV(providerId: number, region = tmdb.WATCH_REGION) {
+  return useMediaQuery(
+    ["discover", "provider", "tv", providerId, region],
+    () =>
+      tmdb.discoverTV({
+        with_watch_providers: String(providerId),
+        watch_region: region,
+        sort_by: "popularity.desc",
+      }),
+    providerId > 0
+  )
+}

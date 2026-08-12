@@ -32,9 +32,9 @@ export function Logo({ size = "default" }: LogoProps) {
         <circle cx="18" cy="18" r="4" stroke="url(#logoGrad)" strokeWidth="1.5" className="logo-pulse-ring-3" />
         <circle cx="18" cy="18" r="2.5" fill="url(#logoGrad)" className="logo-center-dot" />
       </svg>
-      <span className={`${s.text} font-bold tracking-tight leading-none`}>
+      <span className={`${s.text} font-display tracking-tight leading-none`}>
         <span className="text-white">Culture</span>
-        <span className="text-primary">Hub</span>
+        <span className="text-primary text-glow">Hub</span>
       </span>
     </div>
   )

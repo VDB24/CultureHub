@@ -7,12 +7,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import type { MediaItem } from "@/lib/types"
 
 interface ContentRowProps {
-  title: string
+  title?: string
+  titleNode?: React.ReactNode
   items?: MediaItem[]
   isLoading?: boolean
 }
 
-export function ContentRow({ title, items, isLoading }: ContentRowProps) {
+export function ContentRow({ title, titleNode, items, isLoading }: ContentRowProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [showLeftArrow, setShowLeftArrow] = useState(false)
   const [showRightArrow, setShowRightArrow] = useState(true)
@@ -54,7 +55,11 @@ export function ContentRow({ title, items, isLoading }: ContentRowProps) {
 
   return (
     <section className="relative group/row">
-      <h2 className="text-xl font-bold text-white mb-4 px-0">{title}</h2>
+      {titleNode ? (
+        titleNode
+      ) : title ? (
+        <h2 className="font-display text-xl sm:text-2xl text-white mb-4 px-0">{title}</h2>
+      ) : null}
 
       <div className="relative">
         {showLeftArrow && (
@@ -70,7 +75,7 @@ export function ContentRow({ title, items, isLoading }: ContentRowProps) {
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex gap-3 overflow-x-auto scrollbar-none pb-2 -mx-4 px-4 snap-x snap-mandatory"
+          className="flex gap-3 overflow-x-auto overscroll-x-contain scrollbar-none pb-2 -mx-4 px-4 snap-x snap-mandatory"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {items.map((item) => (
