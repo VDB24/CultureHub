@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import Link from "next/link"
 import { MediaCard } from "@/components/MediaCard"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -47,7 +46,7 @@ export default function MoviesPage() {
   return (
     <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold text-white">Movies</h1>
+        <h1 className="font-display text-3xl sm:text-4xl text-white">Movies</h1>
         <Button
           variant="outline"
           size="sm"
@@ -62,14 +61,14 @@ export default function MoviesPage() {
 
       {/* Filters */}
       {showFilters && (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-6 space-y-4 animate-fade-in">
+        <div className="glass-deep border border-white/10 rounded-2xl p-4 mb-6 space-y-4 animate-fade-in">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="text-xs text-zinc-500 uppercase tracking-wider mb-1.5 block">Sort By</label>
               <select
                 value={sortBy}
                 onChange={(e) => { setSortBy(e.target.value); setPage(1) }}
-                className="w-full bg-zinc-800 text-white rounded-lg px-3 py-2 text-sm border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full bg-white/[0.06] text-white rounded-lg px-3 py-2 text-sm border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-md"
               >
                 {SORT_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -81,7 +80,7 @@ export default function MoviesPage() {
               <select
                 value={genreFilter}
                 onChange={(e) => { setGenreFilter(e.target.value); setPage(1) }}
-                className="w-full bg-zinc-800 text-white rounded-lg px-3 py-2 text-sm border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full bg-white/[0.06] text-white rounded-lg px-3 py-2 text-sm border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-md"
               >
                 <option value="">All Genres</option>
                 {genres.map((g) => (
@@ -94,7 +93,7 @@ export default function MoviesPage() {
               <select
                 value={langFilter}
                 onChange={(e) => { setLangFilter(e.target.value); setPage(1) }}
-                className="w-full bg-zinc-800 text-white rounded-lg px-3 py-2 text-sm border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full bg-white/[0.06] text-white rounded-lg px-3 py-2 text-sm border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-md"
               >
                 <option value="">All Languages</option>
                 {Object.entries(LANGUAGE_MAP).map(([code, name]) => (
@@ -108,18 +107,18 @@ export default function MoviesPage() {
 
       {/* Grid */}
       {isLoading ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5">
           {Array.from({ length: 18 }).map((_, i) => (
             <div key={i}>
-              <Skeleton className="aspect-[2/3] rounded-lg" />
+              <Skeleton className="aspect-[2/3] rounded-2xl" />
               <Skeleton className="h-4 w-20 mt-2" />
-              <Skeleton className="h-3 w-14 mt-1" />
+              
             </div>
           ))}
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5">
             {data?.results?.map((item) => (
               <MediaCard key={item.id} item={item} />
             ))}

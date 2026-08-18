@@ -1,6 +1,6 @@
 "use client"
 
-import { use, useState, useEffect } from "react"
+import { use, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useSearch } from "@/hooks/useTMDB"
 import { MediaCard } from "@/components/MediaCard"
@@ -18,11 +18,13 @@ export default function SearchPage({
   const router = useRouter()
   const [query, setQuery] = useState(resolvedParams.q || "")
   const [page, setPage] = useState(1)
+  const [prevQuery, setPrevQuery] = useState(resolvedParams.q)
 
-  useEffect(() => {
+  if (prevQuery !== resolvedParams.q) {
+    setPrevQuery(resolvedParams.q)
     setQuery(resolvedParams.q || "")
     setPage(1)
-  }, [resolvedParams.q])
+  }
 
   const { data, isLoading } = useSearch(query, page)
 
@@ -34,7 +36,7 @@ export default function SearchPage({
   }
 
   const results = data?.results?.filter(
-    (item: any) => item.media_type === "movie" || item.media_type === "tv"
+    (item) => item.media_type === "movie" || item.media_type === "tv"
   ) || []
 
   const totalPages = Math.min(data?.total_pages || 1, 500)
@@ -48,7 +50,7 @@ export default function SearchPage({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search movies & TV shows..."
-            className="pl-12 pr-12 h-14 text-lg bg-zinc-900 border-zinc-700 focus:border-primary rounded-xl"
+            className="pl-12 pr-12 h-14 text-lg bg-white/[0.04] border-white/10 focus:border-primary rounded-2xl backdrop-blur-md shadow-apple-card"
           />
           {query && (
             <button
@@ -65,12 +67,12 @@ export default function SearchPage({
       {query && (
         <>
           {isLoading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5">
               {Array.from({ length: 12 }).map((_, i) => (
                 <div key={i}>
-                  <Skeleton className="aspect-[2/3] rounded-lg" />
+                  <Skeleton className="aspect-[2/3] rounded-2xl" />
                   <Skeleton className="h-4 w-20 mt-2" />
-                  <Skeleton className="h-3 w-14 mt-1" />
+                  
                 </div>
               ))}
             </div>
@@ -82,8 +84,8 @@ export default function SearchPage({
                   : `No results for "${query}"`}
               </p>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                {results.map((item: any) => (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5">
+                {results.map((item) => (
                   <MediaCard key={`${item.media_type}-${item.id}`} item={item} />
                 ))}
               </div>

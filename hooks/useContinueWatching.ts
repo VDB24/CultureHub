@@ -1,25 +1,26 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useCallback } from "react"
 import type { ContinueWatchingItem } from "@/lib/types"
 
 const STORAGE_KEY = "culturehub-progress"
 
-export function useContinueWatching() {
-  const [items, setItems] = useState<ContinueWatchingItem[]>([])
+function loadItems(): ContinueWatchingItem[] {
+  if (typeof window === "undefined") return []
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return []
+    const data = JSON.parse(raw)
+    return (Object.values(data) as ContinueWatchingItem[]).filter(
+      (item) => item.progress && item.progress.duration > 0
+    )
+  } catch {
+    return []
+  }
+}
 
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY)
-      if (raw) {
-        const data = JSON.parse(raw)
-        const list = Object.values(data) as ContinueWatchingItem[]
-        setItems(list.filter((item) => item.progress && item.progress.duration > 0))
-      }
-    } catch {
-      // ignore
-    }
-  }, [])
+export function useContinueWatching() {
+  const [items, setItems] = useState<ContinueWatchingItem[]>(loadItems)
 
   const addItem = useCallback((item: ContinueWatchingItem) => {
     try {

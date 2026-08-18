@@ -140,7 +140,7 @@ export function HeroBanner({ items, isLoading }: HeroBannerProps) {
             </Badge>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-3 leading-tight tracking-tight drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-7xl text-white mb-3 leading-[1.05] tracking-tight drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]">
             {title}
           </h1>
 
@@ -168,14 +168,14 @@ export function HeroBanner({ items, isLoading }: HeroBannerProps) {
       {/* Navigation arrows */}
       <button
         onClick={prev}
-        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 hover:border-primary/50 hover:shadow-[0_0_16px_-4px_rgba(249,115,22,0.5)]"
+        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 hover:border-primary/50 hover:shadow-[0_0_16px_-4px_rgba(218,27,27,0.5)]"
         aria-label="Previous"
       >
         <ChevronLeft className="w-5 h-5 text-white" />
       </button>
       <button
         onClick={next}
-        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 hover:border-primary/50 hover:shadow-[0_0_16px_-4px_rgba(249,115,22,0.5)]"
+        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 hover:border-primary/50 hover:shadow-[0_0_16px_-4px_rgba(218,27,27,0.5)]"
         aria-label="Next"
       >
         <ChevronRight className="w-5 h-5 text-white" />

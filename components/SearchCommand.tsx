@@ -20,29 +20,34 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
   const [isSearching, setIsSearching] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [prevOpen, setPrevOpen] = useState(open)
+
+  if (prevOpen !== open) {
+    setPrevOpen(open)
+    if (open) {
+      setQuery("")
+      setResults([])
+    }
+  }
 
   useEffect(() => {
     if (open) {
       setTimeout(() => inputRef.current?.focus(), 100)
-    } else {
-      setQuery("")
-      setResults([])
     }
   }, [open])
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current)
 
-    if (query.length < 2) {
-      setResults([])
-      return
-    }
+    if (query.length < 2) return
 
-    setIsSearching(true)
     debounceRef.current = setTimeout(async () => {
+      setIsSearching(true)
       try {
         const data = await searchMulti(query)
-        setResults(data.results.filter((r: any) => r.media_type === "movie" || r.media_type === "tv"))
+        setResults(
+          data.results.filter((r) => r.media_type === "movie" || r.media_type === "tv")
+        )
       } catch {
         // ignore
       } finally {
@@ -78,9 +83,9 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
 
       {/* Dialog */}
       <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-full max-w-xl px-4 animate-scale-in">
-        <div className="bg-zinc-900 border border-zinc-700 rounded-xl shadow-2xl shadow-black/50 overflow-hidden">
+        <div className="glass-deep border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden shadow-apple-card">
           {/* Search input */}
-          <div className="flex items-center gap-3 px-4 py-3 border-b border-zinc-700">
+          <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.07]">
             {isSearching ? (
               <Loader2 className="w-5 h-5 text-zinc-400 animate-spin" />
             ) : (
@@ -95,7 +100,7 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
               placeholder="Search movies & TV shows..."
               className="flex-1 bg-transparent text-white outline-none text-base placeholder:text-zinc-500"
             />
-            <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 text-xs text-zinc-500 bg-zinc-800 rounded">
+            <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 text-xs text-zinc-500 bg-white/[0.06] border border-white/10 rounded">
               ESC
             </kbd>
           </div>
@@ -120,7 +125,7 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
                   <button
                     key={item.id}
                     onClick={() => handleSelect(item)}
-                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-zinc-800 transition-colors text-left"
+                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/[0.06] transition-colors text-left"
                   >
                     <div className="relative w-10 h-14 rounded overflow-hidden flex-shrink-0 bg-zinc-800">
                       {item.poster_path && (

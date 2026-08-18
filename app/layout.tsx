@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono, Grenze_Gotisch } from "next/font/google"
+import { Montserrat, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { Providers } from "@/components/Providers"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
 })
 
@@ -15,15 +15,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 })
 
-const grenze = Grenze_Gotisch({
-  variable: "--font-grenze",
-  weight: ["400", "600", "700"],
-  subsets: ["latin"],
-})
-
 export const metadata: Metadata = {
-  title: "CultureHub - Stream Movies & TV Shows",
-  description: "Your premier destination for streaming movies and TV shows. Watch the latest and greatest content in English, Hindi, and more.",
+  title: "CultureHub — Stream Movies, TV Shows, Live TV & Sports",
+  description: "Your premier destination for streaming movies, TV shows, anime, live TV and live sports. Watch the latest and greatest content in stunning quality — powered by the Ctv Pro premium viewer.",
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     shortcut: "/favicon.svg",
@@ -31,7 +25,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#080808",
+  themeColor: "#0a0a0a",
   width: "device-width",
   initialScale: 1,
 }
@@ -42,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${grenze.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${geistMono.variable}`}>
       <body className="bg-background text-foreground antialiased min-h-screen flex flex-col">
         <Providers>
           <Header />

@@ -1,6 +1,6 @@
 "use client"
 
-import { use, useMemo } from "react"
+import { use } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useMovieDetails } from "@/hooks/useTMDB"
@@ -22,7 +22,6 @@ import {
   formatRating,
   formatRuntime,
   formatDate,
-  truncate,
 } from "@/lib/utils"
 
 export default function MoviePage({ params }: { params: Promise<{ id: string }> }) {
@@ -111,7 +110,7 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
               </div>
               <div className="flex flex-col gap-2 pb-1">
                 <div className="flex items-center gap-1.5">
-                  <Star className="w-4 h-4 fill-orange-400 text-orange-400" />
+                  <Star className="w-4 h-4 fill-primary text-primary" />
                   <span className="text-white font-semibold">
                     {formatRating(movie.vote_average)}
                   </span>
@@ -127,7 +126,7 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
               </div>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-2 leading-[1.05]">
               {movie.title}
             </h1>
 
@@ -137,7 +136,7 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
 
             <div className="hidden md:flex items-center gap-4 flex-wrap mb-6">
               <div className="flex items-center gap-1.5">
-                <Star className="w-5 h-5 fill-orange-400 text-orange-400" />
+                <Star className="w-5 h-5 fill-primary text-primary" />
                 <span className="text-white font-semibold">
                   {formatRating(movie.vote_average)}
                 </span>
@@ -163,7 +162,7 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
             <div className="flex flex-wrap gap-2 mb-6">
               {movie.genres?.map((genre) => (
                 <Link key={genre.id} href={`/movies?with_genres=${genre.id}`}>
-                  <Badge variant="secondary" className="hover:bg-zinc-600 transition-colors cursor-pointer">
+                  <Badge variant="secondary" className="hover:border-primary/40 hover:text-rose-300 transition-colors cursor-pointer">
                     {genre.name}
                   </Badge>
                 </Link>
@@ -198,7 +197,10 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
 
         {/* Quick embed preview */}
         <div className="mt-12 mb-8">
-          <h2 className="text-xl font-bold text-white mb-4">Quick Preview</h2>
+          <h2 className="font-display text-xl sm:text-2xl text-white mb-4 flex items-center gap-2.5">
+            <span className="w-8 h-px bg-primary glow-primary-sm inline-block" />
+            Quick Preview
+          </h2>
           <VideoPlayer
             tmdbId={movie.id}
             mediaType="movie"
@@ -211,7 +213,10 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
         {/* Cast */}
         {movie.credits?.cast && movie.credits.cast.length > 0 && (
           <section className="mb-12">
-            <h2 className="text-xl font-bold text-white mb-4">Cast</h2>
+            <h2 className="font-display text-xl sm:text-2xl text-white mb-4 flex items-center gap-2.5">
+              <span className="w-8 h-px bg-primary glow-primary-sm inline-block" />
+              Cast
+            </h2>
             <div className="flex gap-4 overflow-x-auto overscroll-x-contain pb-4 scrollbar-none">
               {movie.credits.cast.slice(0, 20).map((person) => (
                 <div key={person.id} className="flex-shrink-0 w-[120px] text-center">
@@ -243,7 +248,7 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
           <div className="mb-12">
             <ContentRow
               title="Similar Movies"
-              items={movie.similar.results as any}
+              items={movie.similar.results}
             />
           </div>
         )}
@@ -253,7 +258,7 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
           <div className="mb-12">
             <ContentRow
               title="Recommendations"
-              items={movie.recommendations.results as any}
+              items={movie.recommendations.results}
             />
           </div>
         )}

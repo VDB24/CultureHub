@@ -3,9 +3,8 @@
 import { useEffect } from "react"
 import { HeroBanner } from "@/components/HeroBanner"
 import { ContentRow } from "@/components/ContentRow"
-import { ProviderRow } from "@/components/ProviderRow"
+import { ChannelsAndApps } from "@/components/ChannelsAndApps"
 import { useWatchProviders } from "@/hooks/useTMDB"
-import { resolveProviders } from "@/lib/providers"
 import {
   useTrendingMovies,
   useTrendingTV,
@@ -32,7 +31,6 @@ export default function Home() {
   const onTheAir = useOnTheAirTV()
 
   const watchProviders = useWatchProviders()
-  const providers = resolveProviders(watchProviders.data?.results || [])
 
   useEffect(() => {
     if (watchProviders.error) {
@@ -51,11 +49,21 @@ export default function Home() {
         isLoading={isLoading}
       />
 
-      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-10">
-        {providers.map((provider) => (
-          <ProviderRow key={provider.key} provider={provider} />
-        ))}
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-12">
+        <ChannelsAndApps />
 
+        <ContentRow
+          title="Top 10 Movies"
+          rank
+          items={topMovies.data?.results?.slice(0, 10)}
+          isLoading={topMovies.isLoading}
+        />
+        <ContentRow
+          title="Top 10 TV Shows"
+          rank
+          items={topTV.data?.results?.slice(0, 10)}
+          isLoading={topTV.isLoading}
+        />
         <ContentRow
           title="Trending Movies"
           items={trendingMovies.data?.results}
@@ -80,16 +88,6 @@ export default function Home() {
           title="Popular TV Shows"
           items={popularTV.data?.results}
           isLoading={popularTV.isLoading}
-        />
-        <ContentRow
-          title="Top Rated Movies"
-          items={topMovies.data?.results}
-          isLoading={topMovies.isLoading}
-        />
-        <ContentRow
-          title="Top Rated TV Shows"
-          items={topTV.data?.results}
-          isLoading={topTV.isLoading}
         />
         <ContentRow
           title="Hindi Movies"

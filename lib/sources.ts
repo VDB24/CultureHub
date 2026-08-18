@@ -3,11 +3,42 @@ export interface SourceConfig {
   name: string
   description: string
   origin: string
+  premium?: boolean
+  recommended?: boolean
+  features?: string[]
   buildMovieUrl: (tmdbId: number, params?: Record<string, string>) => string
   buildTVUrl: (tmdbId: number, season: number, episode: number, params?: Record<string, string>) => string
 }
 
 const SOURCES: SourceConfig[] = [
+  {
+    id: "videasy",
+    name: "Ctv Pro",
+    description: "Premium 4K · Live TV & Sports · Anime",
+    origin: "https://player.videasy.net",
+    premium: true,
+    recommended: true,
+    features: ["4K Ultra HD", "Live TV", "Live Sports", "Anime", "Multi-audio", "Ads-free"],
+    buildMovieUrl(tmdbId, params = {}) {
+      const allParams = { overlay: "true", color: "DA1B1B", ...params }
+      const base = `https://player.videasy.net/movie/${tmdbId}`
+      const qs = buildQueryString(allParams)
+      return qs ? `${base}?${qs}` : base
+    },
+    buildTVUrl(tmdbId, season, episode, params = {}) {
+      const allParams = {
+        nextEpisode: "true",
+        episodeSelector: "true",
+        autoplayNextEpisode: "true",
+        overlay: "true",
+        color: "DA1B1B",
+        ...params,
+      }
+      const base = `https://player.videasy.net/tv/${tmdbId}/${season}/${episode}`
+      const qs = buildQueryString(allParams)
+      return qs ? `${base}?${qs}` : base
+    },
+  },
   {
     id: "peachify",
     name: "Peachify",
@@ -87,4 +118,5 @@ export function getSources(): SourceConfig[] {
   return SOURCES
 }
 
-export const DEFAULT_SOURCE = "peachify"
+export const DEFAULT_SOURCE = "videasy"
+export const PREMIUM_SOURCE = "videasy"

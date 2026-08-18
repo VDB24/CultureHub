@@ -47,6 +47,14 @@ export function VideoPlayer({
 
     if (autoPlay) params.autoPlay = "true"
 
+    if (source === "videasy") {
+      params.overlay = "true"
+      if (dub) params.dub = dub
+      if (sub) params.sub = sub
+      if (quality && quality !== "auto") params.q = quality
+      if (title) params.title = title
+    }
+
     if (source === "peachify") {
       params.cast = "hide"
       if (dub) params.dub = dub
@@ -76,6 +84,28 @@ export function VideoPlayer({
 
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== allowedOrigin) return
+
+      if (source === "videasy") {
+        const data = event.data
+        if (data?.id && (data.type === "movie" || data.type === "tv" || data.type === "anime")) {
+          const watched = Number(data.progress)
+          const duration = Number(data.duration)
+          if (watched > 0 && duration > 0) {
+            const item: ContinueWatchingItem = {
+              id: tmdbId,
+              type: mediaType,
+              title: title || data.title || "",
+              poster_path: posterPath || null,
+              progress: { watched, duration },
+            }
+            if (data.season != null && data.episode != null) {
+              item.last_season_watched = String(data.season)
+              item.last_episode_watched = String(data.episode)
+            }
+            addItem(item)
+          }
+        }
+      }
 
       if (source === "peachify") {
         if (event.data?.type === "MEDIA_DATA") {

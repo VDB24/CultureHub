@@ -11,6 +11,15 @@ const KNOWN_PROVIDER_IDS: Record<string, number> = {
   sonyliv: 1459,
 }
 
+const PROVIDER_URLS: Record<string, string> = {
+  netflix: "https://www.netflix.com",
+  prime: "https://www.primevideo.com",
+  hotstar: "https://www.hotstar.com",
+  apple: "https://tv.apple.com",
+  zee5: "https://www.zee5.com",
+  sonyliv: "https://www.sonyliv.com",
+}
+
 interface CuratedProvider {
   key: string
   label: string
@@ -31,6 +40,7 @@ export interface ResolvedProvider {
   id: number
   label: string
   logoPath: string | null
+  url: string
 }
 
 export function resolveProviders(providers: WatchProvider[]): ResolvedProvider[] {
@@ -45,6 +55,7 @@ export function resolveProviders(providers: WatchProvider[]): ResolvedProvider[]
       id: found ? found.provider_id : fallbackId!,
       label: p.label,
       logoPath: found ? found.logo_path : null,
+      url: PROVIDER_URLS[p.key],
     }
   }).filter((p): p is ResolvedProvider => p !== null)
 }

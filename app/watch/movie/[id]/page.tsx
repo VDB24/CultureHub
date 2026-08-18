@@ -7,13 +7,14 @@ import { VideoPlayer } from "@/components/VideoPlayer"
 import { ServerSelector } from "@/components/ServerSelector"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
+import { DEFAULT_SOURCE } from "@/lib/sources"
 import { ArrowLeft } from "lucide-react"
 
 export default function WatchMoviePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const movieId = Number(id)
   const { data: movie, isLoading } = useMovieDetails(movieId)
-  const [source, setSource] = useState("peachify")
+  const [source, setSource] = useState(DEFAULT_SOURCE)
 
   if (isLoading) {
     return (

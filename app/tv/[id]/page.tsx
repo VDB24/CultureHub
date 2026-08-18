@@ -103,7 +103,7 @@ export default function TVDetailPage({ params }: { params: Promise<{ id: string 
               </div>
               <div className="flex flex-col gap-2 pb-1">
                 <div className="flex items-center gap-1.5">
-                  <Star className="w-4 h-4 fill-orange-400 text-orange-400" />
+                  <Star className="w-4 h-4 fill-primary text-primary" />
                   <span className="text-white font-semibold">{formatRating(show.vote_average)}</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-zinc-400 text-sm">
@@ -117,7 +117,7 @@ export default function TVDetailPage({ params }: { params: Promise<{ id: string 
               </div>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-2 leading-[1.05]">
               {show.name}
             </h1>
 
@@ -127,7 +127,7 @@ export default function TVDetailPage({ params }: { params: Promise<{ id: string 
 
             <div className="hidden md:flex items-center gap-4 flex-wrap mb-6">
               <div className="flex items-center gap-1.5">
-                <Star className="w-5 h-5 fill-orange-400 text-orange-400" />
+                <Star className="w-5 h-5 fill-primary text-primary" />
                 <span className="text-white font-semibold">{formatRating(show.vote_average)}</span>
                 <span className="text-zinc-500 text-sm">({show.vote_count.toLocaleString()})</span>
               </div>
@@ -151,7 +151,7 @@ export default function TVDetailPage({ params }: { params: Promise<{ id: string 
             <div className="flex flex-wrap gap-2 mb-6">
               {show.genres?.map((genre) => (
                 <Link key={genre.id} href={`/tv?with_genres=${genre.id}`}>
-                  <Badge variant="secondary" className="hover:bg-zinc-600 transition-colors cursor-pointer">
+                  <Badge variant="secondary" className="hover:border-primary/40 hover:text-rose-300 transition-colors cursor-pointer">
                     {genre.name}
                   </Badge>
                 </Link>
@@ -177,12 +177,15 @@ export default function TVDetailPage({ params }: { params: Promise<{ id: string 
         {seasonNumbers.length > 0 && (
           <section className="mt-12 mb-8">
             <div className="flex items-center gap-4 mb-6">
-              <h2 className="text-xl font-bold text-white">Episodes</h2>
+              <h2 className="font-display text-xl sm:text-2xl text-white flex items-center gap-2.5">
+                <span className="w-8 h-px bg-primary glow-primary-sm inline-block" />
+                Episodes
+              </h2>
               <div className="relative">
                 <select
                   value={selectedSeason}
                   onChange={(e) => setSelectedSeason(Number(e.target.value))}
-                  className="bg-zinc-800 text-white rounded-lg px-4 py-2 pr-8 text-sm border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary appearance-none"
+                  className="bg-white/[0.06] text-white rounded-lg px-4 py-2 pr-8 text-sm border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary appearance-none backdrop-blur-md"
                 >
                   {seasonNumbers.map((sn) => {
                     const season = show.seasons?.find((s) => s.season_number === sn)
@@ -202,7 +205,7 @@ export default function TVDetailPage({ params }: { params: Promise<{ id: string 
                 <Link
                   key={episode.id}
                   href={`/watch/tv/${show.id}/${episode.season_number}/${episode.episode_number}`}
-                  className="flex gap-4 p-3 rounded-lg bg-zinc-900/50 border border-zinc-800 hover:bg-zinc-800/50 hover:border-zinc-700 transition-all group"
+                  className="flex gap-4 p-3 rounded-2xl bg-zinc-900/50 border border-white/[0.06] hover:bg-white/[0.04] hover:border-primary/30 transition-all group shadow-apple-card hover:shadow-apple-card-hover"
                 >
                   <div className="relative w-[160px] aspect-video rounded-md overflow-hidden flex-shrink-0 bg-zinc-800">
                     {episode.still_path ? (
@@ -239,7 +242,7 @@ export default function TVDetailPage({ params }: { params: Promise<{ id: string 
                       {episode.runtime > 0 && <span>{episode.runtime}m</span>}
                       {episode.vote_average > 0 && (
                         <span className="flex items-center gap-1">
-                          <Star className="w-3 h-3 fill-orange-400 text-orange-400" />
+                          <Star className="w-3 h-3 fill-primary text-primary" />
                           {formatRating(episode.vote_average)}
                         </span>
                       )}
@@ -254,7 +257,10 @@ export default function TVDetailPage({ params }: { params: Promise<{ id: string 
         {/* Cast */}
         {show.credits?.cast && show.credits.cast.length > 0 && (
           <section className="mb-12">
-            <h2 className="text-xl font-bold text-white mb-4">Cast</h2>
+            <h2 className="font-display text-xl sm:text-2xl text-white mb-4 flex items-center gap-2.5">
+              <span className="w-8 h-px bg-primary glow-primary-sm inline-block" />
+              Cast
+            </h2>
             <div className="flex gap-4 overflow-x-auto overscroll-x-contain pb-4 scrollbar-none">
               {show.credits.cast.slice(0, 20).map((person) => (
                 <div key={person.id} className="flex-shrink-0 w-[120px] text-center">
@@ -284,14 +290,14 @@ export default function TVDetailPage({ params }: { params: Promise<{ id: string 
         {/* Similar */}
         {show.similar?.results && show.similar.results.length > 0 && (
           <div className="mb-12">
-            <ContentRow title="Similar Shows" items={show.similar.results as any} />
+            <ContentRow title="Similar Shows" items={show.similar.results} />
           </div>
         )}
 
         {/* Recommendations */}
         {show.recommendations?.results && show.recommendations.results.length > 0 && (
           <div className="mb-12">
-            <ContentRow title="Recommendations" items={show.recommendations.results as any} />
+            <ContentRow title="Recommendations" items={show.recommendations.results} />
           </div>
         )}
       </div>

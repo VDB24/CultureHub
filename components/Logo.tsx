@@ -23,8 +23,8 @@ export function Logo({ size = "default" }: LogoProps) {
       >
         <defs>
           <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#f97316" />
-            <stop offset="100%" stopColor="#fb923c" />
+            <stop offset="0%" stopColor="#da1b1b" />
+            <stop offset="100%" stopColor="#f43f5e" />
           </linearGradient>
         </defs>
         <circle cx="18" cy="18" r="4" stroke="url(#logoGrad)" strokeWidth="1.5" className="logo-pulse-ring" />

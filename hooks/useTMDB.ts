@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 import * as tmdb from "@/lib/tmdb"
+import * as sportsApi from "@/lib/sportsApi"
 
 function useMediaQuery<T>(key: (string | number)[], fn: () => Promise<T>, enabled = true) {
   return useQuery<T>({
@@ -102,6 +103,15 @@ export function useMovieGenres() {
 
 export function useTVGenres() {
   return useMediaQuery(["genres", "tv"], () => tmdb.fetchTVGenres())
+}
+
+// Live sports (TheSportsDB)
+export function useSportsData() {
+  return useQuery({
+    queryKey: ["sports", "live"],
+    queryFn: () => sportsApi.fetchSportsData(),
+    refetchInterval: 60_000,
+  })
 }
 
 // Watch providers

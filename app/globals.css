@@ -3,27 +3,30 @@
 @theme inline {
   --color-background: #0a0a0a;
   --color-foreground: #fafafa;
-  --color-card: #161616;
+  --color-card: #171717;
   --color-card-foreground: #fafafa;
-  --color-popover: #161616;
+  --color-popover: #171717;
   --color-popover-foreground: #fafafa;
-  --color-primary: #f97316;
-  --color-primary-foreground: #1a0d00;
-  --color-secondary: #1a1a1a;
+  --color-primary: #da1b1b;
+  --color-primary-foreground: #fafafa;
+  --color-secondary: #171717;
   --color-secondary-foreground: #fafafa;
   --color-muted: #1c1c1c;
   --color-muted-foreground: #a3a3a3;
-  --color-accent: #2a1505;
-  --color-accent-foreground: #fed7aa;
+  --color-accent: #4f0d0d;
+  --color-accent-foreground: #fafafa;
   --color-destructive: #7f1d1d;
   --color-destructive-foreground: #fafafa;
-  --color-border: #262626;
-  --color-input: #262626;
-  --color-ring: #f97316;
+  --color-border: #292929;
+  --color-input: #292929;
+  --color-ring: #da1b1b;
+  --color-sidebar: #0d0d0d;
+  --color-sidebar-foreground: #fafafa;
+  --color-sidebar-accent: #4f0d0d;
   --radius: 0.5rem;
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-montserrat);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-grenze);
+  --font-display: var(--font-montserrat);
 }
 
 @layer base {
@@ -32,49 +35,120 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: var(--font-sans), system-ui, sans-serif;
+    font-family: var(--font-montserrat), system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: rgb(249 115 22 / 0.28);
+    background: rgb(218 27 27 / 0.35);
     color: #fff;
   }
   h1, h2, h3 {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+  }
+  img {
+    -webkit-user-drag: none;
+    user-select: none;
   }
 }
 
-/* Frosted-glass panel */
+/* ---------- dulo.gd cinematic glass ---------- */
 .glass {
-  background: rgb(255 255 255 / 0.04);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background-color: hsl(0 0% 12% / 0.55);
   border: 1px solid rgb(255 255 255 / 0.08);
-  box-shadow: 0 8px 32px -12px rgb(0 0 0 / 0.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
+  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.06), 0 8px 32px -12px rgb(0 0 0 / 0.6);
 }
 
-/* Primary glow */
-.glow-primary {
-  box-shadow: 0 0 22px -6px rgb(249 115 22 / 0.6), 0 10px 30px -12px rgb(249 115 22 / 0.5);
-}
-.glow-primary-sm {
-  box-shadow: 0 0 14px -4px rgb(249 115 22 / 0.6);
+.glass-deep {
+  background-color: hsl(0 0% 6% / 0.72);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  backdrop-filter: blur(24px) saturate(1.5);
 }
 
-/* Display typeface (dulo.gd-style cinematic gothic) */
+/* Apple-style card shadows */
+.shadow-apple-card {
+  box-shadow: 0 4px 24px -4px rgb(0 0 0 / 0.5), 0 0 0 1px rgb(255 255 255 / 0.04);
+}
+.shadow-apple-card-hover {
+  box-shadow: 0 16px 48px -12px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+.shadow-apple-hero-panel {
+  box-shadow: 0 24px 80px -24px rgb(0 0 0 / 0.75), inset 0 1px 0 0 rgb(255 255 255 / 0.06);
+}
+
+/* Display typeface (Montserrat, tight) */
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 700;
+  font-family: var(--font-display), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 800;
 }
 
-/* Orange text glow flourish */
+/* Apple easing */
+.ease-apple {
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Blood-red glow flourish */
 @keyframes dulo-glow {
-  0%, 100% { text-shadow: 0 0 18px rgba(249, 115, 22, 0.45), 0 0 36px rgba(249, 115, 22, 0.3), 0 0 56px rgba(154, 52, 18, 0.2); }
-  50% { text-shadow: 0 0 22px rgba(249, 115, 22, 0.6), 0 0 44px rgba(249, 115, 22, 0.38), 0 0 70px rgba(154, 52, 18, 0.28); }
+  0%, 100% {
+    text-shadow: 0 0 18px rgba(220, 38, 38, 0.45), 0 0 36px rgba(220, 38, 38, 0.3),
+      0 0 56px rgba(127, 29, 29, 0.2);
+    opacity: 0.9;
+  }
+  50% {
+    text-shadow: 0 0 24px rgba(239, 68, 68, 0.7), 0 0 52px rgba(220, 38, 38, 0.45),
+      0 0 84px rgba(127, 29, 29, 0.3);
+    opacity: 1;
+  }
 }
 .text-glow {
-  animation: dulo-glow 3.2s ease-in-out infinite;
-  color: #f97316;
+  animation: dulo-glow 2.4s ease-in-out infinite;
+  color: #f43f5e;
+}
+
+.glow-primary {
+  box-shadow: 0 0 22px -6px rgb(218 27 27 / 0.55), 0 10px 30px -12px rgb(218 27 27 / 0.5);
+}
+.glow-primary-sm {
+  box-shadow: 0 0 14px -4px rgb(218 27 27 / 0.55);
+}
+
+/* Huge outlined "Top 10" rank number */
+.top-rank-number {
+  color: rgb(3 3 3 / 0.84);
+  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.72);
+  paint-order: stroke fill;
+  text-shadow: 0 8px 20px rgb(0 0 0 / 0.62);
+  font-family: var(--font-display), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-weight: 850;
+  font-size: clamp(5rem, 10vw, 8rem);
+  line-height: 0.82;
+  letter-spacing: 0;
+}
+
+/* Letter write-in reveal */
+@keyframes dulo-write {
+  0% { opacity: 0; transform: translateY(4px) scaleY(0.3); transform-origin: bottom; }
+  70% { opacity: 1; transform: translateY(0) scaleY(1.05); transform-origin: bottom; }
+  to { opacity: 1; transform: translateY(0) scaleY(1); transform-origin: bottom; }
+}
+.animate-write {
+  animation: dulo-write 0.9s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+/* Radial ambient "glow spots" over dark backdrops */
+.glow-spots {
+  background-image:
+    radial-gradient(circle at 78% 24%, rgb(85 144 193 / 0.18), transparent 38%),
+    radial-gradient(circle at 18% 70%, rgb(218 27 27 / 0.16), transparent 30%),
+    radial-gradient(circle at 45% 10%, rgb(255 255 255 / 0.05), transparent 34%);
 }
 
 /* Hidden scrollbar for horizontal rails */
@@ -99,7 +173,7 @@
   border: 2px solid #0a0a0a;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #f97316;
+  background: #da1b1b;
 }
 
 @keyframes fade-in {

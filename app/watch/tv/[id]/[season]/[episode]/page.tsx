@@ -7,6 +7,7 @@ import { VideoPlayer } from "@/components/VideoPlayer"
 import { ServerSelector } from "@/components/ServerSelector"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
+import { DEFAULT_SOURCE } from "@/lib/sources"
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react"
 
 export default function WatchTVPage({
@@ -20,7 +21,7 @@ export default function WatchTVPage({
   const episodeNum = Number(episode)
 
   const { data: show, isLoading } = useTVDetails(tvId)
-  const [source, setSource] = useState("peachify")
+  const [source, setSource] = useState(DEFAULT_SOURCE)
 
   if (isLoading) {
     return (
