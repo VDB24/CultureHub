@@ -34,7 +34,7 @@ export default function LiveTVPage() {
         <div className="relative p-8 sm:p-12 lg:p-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/15 text-rose-300 text-xs font-semibold tracking-[0.14em] uppercase mb-5">
             <Crown className="w-3.5 h-3.5" />
-            Exclusive to Ctv Pro
+            Free to watch
           </div>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.05] mb-3">
             Live <span className="text-glow">TV</span>
@@ -46,7 +46,7 @@ export default function LiveTVPage() {
           <div className="flex items-center gap-2 text-xs text-zinc-500">
             <Radio className="w-4 h-4 text-rose-300" />
             <span>
-              Live TV is available <span className="text-rose-300 font-semibold">only on the Ctv Pro viewer</span> (Videasy). Other servers do not support live channels.
+              Live TV streams are served via HLS — works across all servers.
             </span>
           </div>
         </div>
@@ -109,7 +109,7 @@ export default function LiveTVPage() {
             Watching in Ultra HD?
           </p>
           <p className="text-sm text-zinc-500">
-            The Ctv Pro viewer unlocks live TV, live sports, anime and 4K playback.
+            Multiple servers available with auto-failover for reliable streaming.
           </p>
         </div>
         <Link href="/sports">

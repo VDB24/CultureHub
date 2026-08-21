@@ -12,30 +12,21 @@ export interface SourceConfig {
 
 const SOURCES: SourceConfig[] = [
   {
-    id: "videasy",
-    name: "Ctv Pro",
-    description: "Premium 4K · Live TV & Sports · Anime",
-    origin: "https://player.videasy.net",
+    id: "vidcore",
+    name: "VidCore",
+    description: "Premium quality",
+    origin: "https://www.vidcore.org",
     premium: true,
     recommended: true,
-    features: ["4K Ultra HD", "Live TV", "Live Sports", "Anime", "Multi-audio", "Ads-free"],
+    features: ["4K Ultra HD", "Chromecast"],
     buildMovieUrl(tmdbId, params = {}) {
-      const allParams = { overlay: "true", color: "DA1B1B", ...params }
-      const base = `https://player.videasy.net/movie/${tmdbId}`
-      const qs = buildQueryString(allParams)
+      const base = `https://www.vidcore.org/embed/movie/${tmdbId}`
+      const qs = buildQueryString(params)
       return qs ? `${base}?${qs}` : base
     },
     buildTVUrl(tmdbId, season, episode, params = {}) {
-      const allParams = {
-        nextEpisode: "true",
-        episodeSelector: "true",
-        autoplayNextEpisode: "true",
-        overlay: "true",
-        color: "DA1B1B",
-        ...params,
-      }
-      const base = `https://player.videasy.net/tv/${tmdbId}/${season}/${episode}`
-      const qs = buildQueryString(allParams)
+      const base = `https://www.vidcore.org/embed/tv/${tmdbId}/${season}/${episode}`
+      const qs = buildQueryString(params)
       return qs ? `${base}?${qs}` : base
     },
   },
@@ -44,6 +35,7 @@ const SOURCES: SourceConfig[] = [
     name: "Peachify",
     description: "Fast & reliable",
     origin: "https://peachify.top",
+    features: ["Fast loading", "Multi-audio"],
     buildMovieUrl(tmdbId, params = {}) {
       const base = `https://peachify.top/embed/movie/${tmdbId}`
       const qs = buildQueryString(params)
@@ -69,9 +61,36 @@ const SOURCES: SourceConfig[] = [
     },
   },
   {
+    id: "videasy",
+    name: "Ctv Pro",
+    description: "Premium 4K · Currently offline",
+    origin: "https://player.videasy.net",
+    premium: true,
+    features: ["4K Ultra HD", "Live TV", "Live Sports", "Anime"],
+    buildMovieUrl(tmdbId, params = {}) {
+      const allParams = { overlay: "true", color: "DA1B1B", ...params }
+      const base = `https://player.videasy.net/movie/${tmdbId}`
+      const qs = buildQueryString(allParams)
+      return qs ? `${base}?${qs}` : base
+    },
+    buildTVUrl(tmdbId, season, episode, params = {}) {
+      const allParams = {
+        nextEpisode: "true",
+        episodeSelector: "true",
+        autoplayNextEpisode: "true",
+        overlay: "true",
+        color: "DA1B1B",
+        ...params,
+      }
+      const base = `https://player.videasy.net/tv/${tmdbId}/${season}/${episode}`
+      const qs = buildQueryString(allParams)
+      return qs ? `${base}?${qs}` : base
+    },
+  },
+  {
     id: "vidking",
     name: "VidKing",
-    description: "Fast player",
+    description: "Currently offline",
     origin: "https://www.vidking.net",
     buildMovieUrl(tmdbId, params = {}) {
       const allParams = { autoPlay: "true", ...params }
@@ -83,22 +102,6 @@ const SOURCES: SourceConfig[] = [
       const allParams = { autoPlay: "true", ...params }
       const base = `https://www.vidking.net/embed/tv/${tmdbId}/${season}/${episode}`
       const qs = buildQueryString(allParams)
-      return qs ? `${base}?${qs}` : base
-    },
-  },
-  {
-    id: "vidcore",
-    name: "VidCore",
-    description: "Premium quality",
-    origin: "https://www.vidcore.org",
-    buildMovieUrl(tmdbId, params = {}) {
-      const base = `https://www.vidcore.org/embed/movie/${tmdbId}`
-      const qs = buildQueryString(params)
-      return qs ? `${base}?${qs}` : base
-    },
-    buildTVUrl(tmdbId, season, episode, params = {}) {
-      const base = `https://www.vidcore.org/embed/tv/${tmdbId}/${season}/${episode}`
-      const qs = buildQueryString(params)
       return qs ? `${base}?${qs}` : base
     },
   },
@@ -118,5 +121,5 @@ export function getSources(): SourceConfig[] {
   return SOURCES
 }
 
-export const DEFAULT_SOURCE = "videasy"
-export const PREMIUM_SOURCE = "videasy"
+export const DEFAULT_SOURCE = "vidcore"
+export const PREMIUM_SOURCE = "vidcore"

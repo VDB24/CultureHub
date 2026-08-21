@@ -35,13 +35,13 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-zinc-300 mb-3">Info</h3>
             <ul className="space-y-2">
               <li><span className="text-sm text-zinc-500">Data from TMDB</span></li>
-              <li><span className="text-sm text-zinc-500">Streaming by Ctv Pro (Videasy)</span></li>
-              <li><span className="text-sm text-zinc-500">Live TV &amp; Sports — Ctv Pro only</span></li>
+              <li><span className="text-sm text-zinc-500">Multiple streaming servers</span></li>
+              <li><span className="text-sm text-zinc-500">Auto-failover for reliability</span></li>
             </ul>
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-zinc-800 text-center text-sm text-zinc-600">
-          &copy; {new Date().getFullYear()} CultureHub. Live TV &amp; Sports available exclusively on the Ctv Pro viewer.
+          &copy; {new Date().getFullYear()} CultureHub. Powered by multiple streaming servers with auto-failover.
         </div>
       </div>
     </footer>

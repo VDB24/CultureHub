@@ -101,7 +101,7 @@ export default function SportsPage() {
         <div className="relative p-8 sm:p-12 lg:p-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/15 text-rose-300 text-xs font-semibold tracking-[0.14em] uppercase mb-5">
             <Crown className="w-3.5 h-3.5" />
-            Exclusive to Ctv Pro
+            Free to watch
           </div>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.05] mb-3">
             Live <span className="text-glow">Sports</span>
@@ -113,8 +113,7 @@ export default function SportsPage() {
           <div className="flex items-center gap-2 text-xs text-zinc-500">
             <Trophy className="w-4 h-4 text-rose-300" />
             <span>
-              Scores &amp; fixtures are live and update in real time on the{" "}
-              <span className="text-rose-300 font-semibold">Ctv Pro viewer</span>.
+              Scores &amp; fixtures are live and update in real time.
             </span>
           </div>
         </div>
@@ -188,7 +187,7 @@ export default function SportsPage() {
             Full match coverage
           </p>
           <p className="text-sm text-zinc-500">
-            The Ctv Pro viewer streams every major league and tournament in HD &amp; 4K.
+            Multiple servers available with auto-failover for reliable streaming.
           </p>
         </div>
         <Link href="/live">

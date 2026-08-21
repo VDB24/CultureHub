@@ -150,7 +150,7 @@ export function Header() {
             </div>
             <div className="px-4 py-2.5 border-t border-white/[0.07] bg-primary/[0.06]">
               <p className="text-[11px] text-zinc-400">
-                Live TV &amp; Sports — <span className="text-rose-300 font-semibold">Ctv Pro only</span>
+                Auto-failover — if a server is down, a backup is used.
               </p>
             </div>
           </div>

@@ -36,7 +36,7 @@ export default function MoviePage({ params }: { params: Promise<{ id: string }> 
         <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
           <Skeleton className="aspect-[2/3] rounded-xl" />
           <div>
-            <Skeleton className="h-10 w-96 mb-4" />
+            <Skeleton className="h-8 w-64 sm:h-10 sm:w-96 mb-4" />
             <Skeleton className="h-5 w-48 mb-2" />
             <Skeleton className="h-4 w-72 mb-6" />
             <Skeleton className="h-24 w-full mb-4" />

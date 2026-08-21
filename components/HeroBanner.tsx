@@ -71,13 +71,13 @@ export function HeroBanner({ items, isLoading }: HeroBannerProps) {
     return (
       <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] min-h-[400px] bg-zinc-900 rounded-b-2xl overflow-hidden mb-8">
         <Skeleton className="absolute inset-0" />
-        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">
-          <Skeleton className="h-10 w-96 mb-4" />
-          <Skeleton className="h-5 w-64 mb-2" />
-          <Skeleton className="h-20 w-[500px] mb-6" />
+        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-16">
+          <Skeleton className="h-8 w-48 sm:h-10 sm:w-96 mb-4" />
+          <Skeleton className="h-4 w-40 sm:h-5 sm:w-64 mb-2" />
+          <Skeleton className="h-16 w-full sm:h-20 sm:w-[500px] mb-6" />
           <div className="flex gap-3">
-            <Skeleton className="h-11 w-32" />
-            <Skeleton className="h-11 w-40" />
+            <Skeleton className="h-11 w-28 sm:w-32" />
+            <Skeleton className="h-11 w-32 sm:w-40" />
           </div>
         </div>
       </div>
