@@ -121,5 +121,5 @@ export function getSources(): SourceConfig[] {
   return SOURCES
 }
 
-export const DEFAULT_SOURCE = "vidcore"
+export const DEFAULT_SOURCE = "peachify"
 export const PREMIUM_SOURCE = "vidcore"
